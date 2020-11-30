@@ -1,0 +1,39 @@
+﻿@model List<Infrastructure.DTO.TypesDTO>
+@{ ViewData["Title"] = "SeedData"; }
+
+<h1>SeedData</h1>
+
+
+@if (ViewData["ErrorMessage"] != null)
+{
+<div class="text-danger float-right" dir="rtl">@ViewData["ErrorMessage"]</div>
+                <br />}
+
+
+
+<div>
+    <form asp-route-TableName="@Model[0].TableName" asp-controller="AddValue" asp-action="AddDataInTable" method="post">
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+
+<div class="form-group ">
+    <label asp-for="values[@i].FieldValue" class="control-label font-weight-bold " style="color: limegreen">@Model[i].FieldName  (@Model[i].FieldType)</label>
+    <div>
+        <input type="hidden" value="@Model[i].FieldType" name="values[@i].FieldType" class="form-control border-dark col-md-3" style="margin-right:12px" />
+        <input type="hidden" value="@Model[i].FieldName" name="values[@i].FieldName" class="form-control border-dark col-md-3" style="margin-right:12px" />
+
+        <input type="text" value="@Model[i].Value" name="values[@i].Value" class="form-control border-dark col-md-3" style="margin-right:12px" />
+        <span asp-validation-for="values[@i].FieldValue"></span>
+    </div>
+</div>}
+
+
+        <div class="form-group ml-3 mt-2">
+            <button type="submit" class="btn btn-primary btn-success">ثبت</button>
+        </div>
+    </form>
+</div>
+
+
+
